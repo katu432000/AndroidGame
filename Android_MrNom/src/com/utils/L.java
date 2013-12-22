@@ -12,6 +12,7 @@ import android.util.Log;
  */
 public class L {
 	
+	// コメント
 	/**
 	 * ログを出力
 	 * @param msg
