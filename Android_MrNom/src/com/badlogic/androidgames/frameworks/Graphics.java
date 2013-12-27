@@ -1,5 +1,7 @@
 package com.badlogic.androidgames.frameworks;
 
+import android.R.integer;
+
 public interface Graphics {
 	public static enum PixmapFormat{
 		ARGB8888, ARGB4444, RGB565
@@ -13,6 +15,7 @@ public interface Graphics {
 	public void drawRect(int x, int y, int width, int height, int color);
 	public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY, int srcWidht, int srcHeight);
 	public void drawPixmap(Pixmap pixmap, int x, int y);
+	public void drawColor(int red, int green, int blue);
 	public int getWidth();
 	public int getHeight();
 }
