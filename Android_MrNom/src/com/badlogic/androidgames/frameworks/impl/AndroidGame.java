@@ -17,10 +17,15 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.view.Display;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.View.OnTouchListener;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public abstract class AndroidGame extends Activity implements Game {
+public abstract class AndroidGame extends Activity implements Game, OnTouchListener {
 	AndroidFastRenderView renderView;
 	Graphics graphics;
 	Audio audio;
@@ -28,6 +33,8 @@ public abstract class AndroidGame extends Activity implements Game {
 	FileIO fileIO;
 	Screen screen;
 	WakeLock wakeLock;
+	TextView textView;
+	StringBuilder builder;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +59,16 @@ public abstract class AndroidGame extends Activity implements Game {
 		fileIO = new AndroidFileIO(getAssets());
 		audio = new AndroidAudio(this);
 		input = new AndroidInput(this, renderView, scaleX, scaleY);
+		
+		textView = new TextView(this);
+		textView.setOnTouchListener(this);
+		
 		screen = getStartScreen();
 		setContentView(renderView);
 		PowerManager powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
-		wakeLock = powerManager.newWakeLock(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, "GLGame");
+		wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "GLGame");
+		setContentView(textView);
+		Toast.makeText(this, textView.getText().toString(), Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
@@ -76,6 +89,29 @@ public abstract class AndroidGame extends Activity implements Game {
 		if(isFinishing()){
 			screen.dispose();
 		}
+	}
+	
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		builder.setLength(0);
+		switch (event.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+			builder.append("down, ");
+			break;
+		case MotionEvent.ACTION_MOVE:
+			builder.append("move, ");
+			break;
+		case MotionEvent.ACTION_CANCEL:
+			builder.append("cancel, ");
+			break;
+		case MotionEvent.ACTION_UP:
+			builder.append("up, ");
+			break;
+		default:
+			break;
+		}
+		textView.setText(builder.toString());
+		return true;
 	}
 	
 	@Override
