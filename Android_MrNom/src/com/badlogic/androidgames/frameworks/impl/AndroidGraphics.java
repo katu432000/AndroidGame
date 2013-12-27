@@ -3,6 +3,7 @@ package com.badlogic.androidgames.frameworks.impl;
 import java.io.IOException;
 import java.io.InputStream;
 
+import android.R.integer;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -131,5 +132,10 @@ public class AndroidGraphics implements Graphics{
 	@Override
 	public int getHeight() {
 		return frameBuffer.getHeight();
+	}
+
+	@Override
+	public void drawColor(int red, int green, int blue) {
+		canvas.drawRGB(red, green, blue);
 	}
 }
