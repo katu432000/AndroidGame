@@ -18,7 +18,7 @@ public class L {
 	 * @param msg
 	 */
 	public static void d(String msg){
-		if(!BuildConfig.DEBUG){
+		if(BuildConfig.DEBUG){
 			return;
 		}
 		Log.d(getTag(), msg);
