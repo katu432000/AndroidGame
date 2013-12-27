@@ -1,6 +1,5 @@
 package com.badlogic.androidgames.frameworks;
 
-import android.R.integer;
 
 public interface Graphics {
 	public static enum PixmapFormat{
