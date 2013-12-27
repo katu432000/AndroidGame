@@ -54,7 +54,6 @@ public class GameScreen extends Screen{
 	}
 	
 	private void updateRunning(List<TouchEvent> touchEvents, float deltaTime){
-		Graphics g = game.getGraphics();
 		int len = touchEvents.size();
 		for(int i = 0; i < len; i++){
 			TouchEvent event = touchEvents.get(i);
@@ -66,8 +65,6 @@ public class GameScreen extends Screen{
 					gameState = GameState.Paused;
 					return;
 				}
-				g.drawColor(0, 0, 0);
-				
 			}
 			
 			if(event.type == TouchEvent.TOUCH_DOWN){
