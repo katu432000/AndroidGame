@@ -33,14 +33,12 @@ public class MainActivity extends SimpleLayoutGameActivity{
 
 	@Override
 	protected int getLayoutID() {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+		return R.layout.activity_main;
 	}
 
 	@Override
 	protected int getRenderSurfaceViewID() {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+		return R.id.renderview;
 	}
 	
 }
