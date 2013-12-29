@@ -1,6 +1,8 @@
 package com.example.android_mrnom;
 
 import java.util.List;
+
+import android.R.bool;
 import android.graphics.Color;
 
 import com.badlogic.androidgames.frameworks.Game;
@@ -22,6 +24,7 @@ public class GameScreen extends Screen{
 	World world;
 	int oldScore = 0;
 	String score = "0";
+	boolean drawTime = false;
 	
 	public GameScreen(Game game) {
 		super(game);
@@ -54,7 +57,6 @@ public class GameScreen extends Screen{
 	}
 	
 	private void updateRunning(List<TouchEvent> touchEvents, float deltaTime){
-		Graphics g = game.getGraphics();
 		int len = touchEvents.size();
 		for(int i = 0; i < len; i++){
 			TouchEvent event = touchEvents.get(i);
@@ -66,10 +68,10 @@ public class GameScreen extends Screen{
 					gameState = GameState.Paused;
 					return;
 				}
-				g.drawColor(0, 0, 0);
 				
+				drawTime = true;
 			}
-			
+						
 			if(event.type == TouchEvent.TOUCH_DOWN){
 				if(event.x < 64 && event.y > 416){
 					world.snake.turnLeft();
@@ -79,7 +81,7 @@ public class GameScreen extends Screen{
 				}
 			}
 		}
-		world.update(deltaTime);
+		//world.update(deltaTime);
 		if(world.gameOver){
 			if(Settings.soundEnabled){
 				Assets.bitten.play(1);
@@ -142,6 +144,12 @@ public class GameScreen extends Screen{
 		Graphics g = game.getGraphics();
 		
 		g.drawPixmap(Assets.backGround, 0, 0);
+		//TODO 白を描画する
+		if(drawTime){
+			g.drawPixmap(Assets.buttons, 100, 100);
+			drawTime = false;
+		}
+		
 		drawWorld(world);
 		if(gameState == GameState.Ready){
 			drawReadyUI();
@@ -261,6 +269,10 @@ public class GameScreen extends Screen{
 			g.drawPixmap(Assets.numbers, x, y, srcX, 0, srcWidth, 32);
 			x += srcWidth;
 		}
+	}
+	
+	public void animeA() {
+		
 	}
 	
 	@Override

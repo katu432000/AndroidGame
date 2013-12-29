@@ -5,8 +5,12 @@ import com.utils.L;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.TextView;
 
 public class AndroidFastRenderView extends SurfaceView implements Runnable{
 	AndroidGame game;
@@ -14,6 +18,7 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable{
 	Thread renderThread = null;
 	SurfaceHolder holder;
 	volatile boolean running = false;
+	TextView textView;
 	
 	public AndroidFastRenderView(AndroidGame game, Bitmap frameBuffer) {
 		super(game);

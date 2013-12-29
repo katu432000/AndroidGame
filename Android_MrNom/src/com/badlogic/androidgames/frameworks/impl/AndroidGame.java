@@ -17,8 +17,13 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.view.Display;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.View.OnTouchListener;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public abstract class AndroidGame extends Activity implements Game {
 	AndroidFastRenderView renderView;
@@ -52,10 +57,11 @@ public abstract class AndroidGame extends Activity implements Game {
 		fileIO = new AndroidFileIO(getAssets());
 		audio = new AndroidAudio(this);
 		input = new AndroidInput(this, renderView, scaleX, scaleY);
+		
 		screen = getStartScreen();
 		setContentView(renderView);
 		PowerManager powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
-		wakeLock = powerManager.newWakeLock(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, "GLGame");
+		wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "GLGame");
 	}
 	
 	@Override
@@ -77,7 +83,7 @@ public abstract class AndroidGame extends Activity implements Game {
 			screen.dispose();
 		}
 	}
-	
+		
 	@Override
 	public Input getInput() {
 		return input;
